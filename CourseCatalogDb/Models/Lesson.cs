@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalogDb.Models;
 
+[Index(nameof(SectionId), nameof(Order), IsUnique = true)]
 public class Lesson
 {
     /// <summary>
@@ -35,6 +37,12 @@ public class Lesson
     /// </summary>
     [Required]
     public TimeSpan VideoLength { get; set; }
+
+    /// <summary>
+    /// Ordering of this lesson within the section.
+    /// </summary>
+    [Required]
+    public ushort Order { get; set; } = 1;
 
     #region Parent Foreign Key Data and Nav/Ref Prop
     /// <summary>

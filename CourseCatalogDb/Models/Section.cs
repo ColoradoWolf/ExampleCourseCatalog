@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalogDb.Models;
 
@@ -7,6 +8,7 @@ namespace CourseCatalogDb.Models;
 /// Section represents an individual module within a course, and
 /// references the Lessons the module contains.
 /// </summary>
+[Index(nameof(CourseId), nameof(Order), IsUnique = true)]
 public class Section
 {
     /// <summary>
@@ -27,6 +29,12 @@ public class Section
     /// </summary>
     [StringLength(500, MinimumLength = 1)]
     public string? SectionDesc { get; set; }
+
+    /// <summary>
+    /// Ordering of this section within the course.
+    /// </summary>
+    [Required]
+    public ushort Order { get; set; }
 
     /// <summary>
     /// The lessons that are a part of this section.

@@ -3,6 +3,7 @@ using CourseCatalogDb.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace CourseCatalogApi.Controllers;
 
@@ -13,8 +14,10 @@ namespace CourseCatalogApi.Controllers;
 /// <param name="options">Configuration options for course catalog functionality.</param>
 [Route("api/[controller]")]
 [ApiController]
-public class CoursesController(CourseCatalogDbContext context, CatalogOptions options) : ControllerBase
+public class CoursesController(CourseCatalogDbContext context, IOptions<CatalogOptions> options) : ControllerBase
 {
+    private readonly CatalogOptions _options = options.Value;
+
     /// <summary>
     /// Provides listing of courses in the catalog.  For now, always includes associated sections and lessons, and data paginated
     /// with page size given in CatalogOptions (defaults to 1000).
@@ -36,9 +39,9 @@ public class CoursesController(CourseCatalogDbContext context, CatalogOptions op
         var qry = context.Courses
             .Include(c => c.Sections)
             .ThenInclude(s => s.Lessons)
-            .AsNoTracking()
-            .Skip(((pageNum ?? 1) - 1) * options.PageSize)
-            .Take(options.PageSize);
+            .Skip(((pageNum ?? 1) - 1) * _options.PageSize)
+            .Take(_options.PageSize)
+            .AsNoTracking();
 
         return await qry.ToListAsync();
     }
