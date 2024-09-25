@@ -37,8 +37,8 @@ public class CoursesController(CourseCatalogDbContext context, IOptions<CatalogO
         // Use basic Skip/Take method of pagination here.  Would impl better method with more time.
         //  NOTE:  Could be issue with Take/Skip behavior with includes (multi-level joins).
         var qry = context.Courses
-            .Include(c => c.Sections)
-            .ThenInclude(s => s.Lessons)
+            .Include(c => c.Sections.OrderBy(s => s.Order))
+            .ThenInclude(s => s.Lessons.OrderBy(l => l.Order))
             .Skip(((pageNum ?? 1) - 1) * _options.PageSize)
             .Take(_options.PageSize)
             .AsNoTracking();
