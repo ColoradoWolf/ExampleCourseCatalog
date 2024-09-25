@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "f4bda2b8-9524-46a0-9635-b5a3e61fc146",
+		"name": "Jason's Example Course Catalog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8999258"
+	},
+	"item": [
+		{
+			"name": "Get Courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{HostAddr}}/api/Courses/?pageNum=1",
+					"protocol": "https",
+					"host": [
+						"{{HostAddr}}"
+					],
+					"path": [
+						"api",
+						"Courses",
+						""
+					],
+					"query": [
+						{
+							"key": "pageNum",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add User Lesson Viewed Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"lessonId\": 10,\r\n  \"pctViewed\": 1.567\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{HostAddr}}/api/Users/1/lessons",
+					"protocol": "https",
+					"host": [
+						"{{HostAddr}}"
+					],
+					"path": [
+						"api",
+						"Users",
+						"1",
+						"lessons"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HostAddr",
+			"value": "localhost:7028",
+			"type": "string"
+		}
+	]
+}

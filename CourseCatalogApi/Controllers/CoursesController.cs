@@ -1,4 +1,5 @@
-﻿using CourseCatalogDb;
+﻿using CourseCatalogApi.Responses;
+using CourseCatalogDb;
 using CourseCatalogDb.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,10 @@ public class CoursesController(CourseCatalogDbContext context, IOptions<CatalogO
     {
         if (pageNum < 1)
         {
-            return BadRequest("Page number must be >= 1.");
+            return BadRequest(new ErrorResponse
+            {
+                ErrorMsg = "Page number must be >= 1."
+            });
         }
 
         // Use basic Skip/Take method of pagination here.  Would impl better method with more time.
