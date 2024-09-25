@@ -1,4 +1,5 @@
 ﻿using CourseCatalogApi.Requests;
+using CourseCatalogApi.Responses;
 using CourseCatalogDb;
 using CourseCatalogDb.Models;
 using Microsoft.AspNetCore.Http;
@@ -51,7 +52,10 @@ public class UsersController(CourseCatalogDbContext context) : ControllerBase
         }
         catch (DbUpdateException)
         {
-            return BadRequest("Unable to save data.  Please verify the user and lesson IDs provided are correct, and pct is between 0 and 1.");
+            return BadRequest(new ErrorResponse
+            {
+                ErrorMsg = "Unable to save data.  Please verify the user and lesson IDs provided are correct, and pct is between 0 and 1."
+            });
         }
         catch
         {
