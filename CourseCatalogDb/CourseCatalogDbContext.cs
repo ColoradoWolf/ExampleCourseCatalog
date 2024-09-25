@@ -11,8 +11,8 @@ public class CourseCatalogDbContext(DbContextOptions<CourseCatalogDbContext> opt
     public DbSet<User> Users { get; set; }
     public DbSet<UserLesson> UserLessons { get; set; }
 
-    private const string CreatedPropName = "CreatedOn_Utc";
-    private const string UpdatedPropName = "LastUpdatedOn_Utc";
+    public const string CreatedPropName = "CreatedOn_Utc";
+    public const string UpdatedPropName = "LastUpdatedOn_Utc";
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
